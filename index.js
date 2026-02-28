@@ -1,3 +1,5 @@
+// Atualizando
+
 // List ,Object> v1 = new ArrayLost<>()
 v1 = [10, 3] // nasce com tamanho 2 e está sendo editado
 console.log(v1.length)      // 0
