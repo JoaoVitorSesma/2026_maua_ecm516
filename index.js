@@ -1,21 +1,65 @@
-// Atualizando
+// // Funções
+// // function e arrow functions
 
-// List ,Object> v1 = new ArrayLost<>()
-v1 = [10, 3] // nasce com tamanho 2 e está sendo editado
-console.log(v1.length)      // 0
-v1[0] = 2
-console.log(v1.length)      // 1
-v1[1] = 'abc'
-console.log(v1.length)      // 2
-console.log(v1)             // [2, 'abc']
+// // Arrow Function
+// const falarOi = () => {console.log('Oi')} 
+// falarOi()
 
-v1[10] = 'João'
-console.log(v1.length)      // 11
-console.log(v1)             // [ 2, 'abc', <8 empty items>, 'João' ]
+// // Como tem so um argumento os parenteses podem ser homitidos, assim como as chaves
+// const falarOi = nome => {console.log(`Oi, ${nome}`)}
+// falarOi(`Maria`)
 
-for(let i = 0; 1 < v1.length; i++){
-    console.log(v1[i])      // undefined
-}
+// const falarOi = nome => console.log(`Oi, ${nome}`)
+// falarOi(`Maria`)
+
+// const somar = (a, b) => {return a + b}  // ou a + b,sem os parenteses e sem o return 
+// console.log(somar(4, 6))
+ 
+// Function
+// function hello(){
+//     console.log(`Oi`)
+// }
+// hello() // ou hello(undefined) Oi, undefined
+
+// // Redefinição e não sobrecarga(que redefine os tipos dos obejtos)
+// function hello(nome){
+//     console.log(`Oi, ${nome}`)
+// }
+// hello('Maria')  // Oi, Maria
+
+// function soma(a, b){
+//     return a+ b
+// }
+// const resultado = soma(2,3)
+// console.log(resultado)      // 5
+
+// const dobro = function(n){
+//     return 2 * n
+// }
+// console.log(dobro(6))   // 12
+
+// const triplo = function(n = 5){
+//     return 3 * n
+// }
+// console.log(triplo())   // mantem o valor padrao (15)
+// console.log(triplo(10)) // usa o valor atibuido (30)
+
+// // List ,Object> v1 = new ArrayLost<>()
+// v1 = [10, 3] // nasce com tamanho 2 e está sendo editado
+// console.log(v1.length)      // 0
+// v1[0] = 2
+// console.log(v1.length)      // 1
+// v1[1] = 'abc'
+// console.log(v1.length)      // 2
+// console.log(v1)             // [2, 'abc']
+
+// v1[10] = 'João'
+// console.log(v1.length)      // 11
+// console.log(v1)             // [ 2, 'abc', <8 empty items>, 'João' ]
+
+// for(let i = 0; 1 < v1.length; i++){
+//     console.log(v1[i])      // undefined
+// }
     
 
 // // operadores de comparação por igualdade: == e ===
