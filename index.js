@@ -1,6 +1,87 @@
+// const eAgora = () => {
+//     let cont = 1
+//     const f1 = () => console.log(cont)
+//     cont++
+//     const f2 = () => console.log(cont)
+//     cont++
+//     return {f1, f2}
+// }
+// const res = eAgora()
+// res.f1()
+// res.f2()
+
+// function f(idade){
+//     let nome = 'Joao'
+//     function g(){
+//             console.log(`Meu nome e ${nome} e tenho ${idade} anos`)
+//         // g()
+//     }
+//     // g() // recursão infinita com o g() se chamando
+//     return g
+// }
+// // const res = f() // undefined
+// const res = f(17)
+// res()
+
+// function f(){
+//     let nome = 'Joao'
+//     function g(){
+//         console.log(nome)
+//         // g()
+//     }
+//     // g() // recursão infinita com o g() se chamando
+//     return g
+// }
+// const res = f()
+// res()
+
+// // function f(funcao){
+// //     funcao
+// // }
+
+// function f(funcao){
+//     funcao()
+// }
+
+// // function g(){
+// //     function outraFuncao(){
+// //         console.log('Fui criada por g')
+// //     }
+// //     return outraFuncao
+// // }
+// // // g() // nada
+// // g() ()
+// // g() () () // undefined
+
+// function g(){
+//     function outraFuncao(){
+//         console.log('Fui criada por g')
+//         return () => console.log("A")
+//     }
+//     return outraFuncao() // retorna oq essa funcao executa 
+// }
+// // g()                 // Fui criada por g
+// // console.log(g() ()) // A
+
+// f(g())
+
+// f(1)    // erro
+// const res = g()
+// f(res)
+// console.log(res)
+// let umaFuncao = function(){
+//     console.log("Fui armazenada em uma variavel!")
+//     return () => 'oi'
+// }
+// umaFuncao()
+// function f(funcao){
+//     funcao()
+//     console.log(funcao())
+// }
+// f(umaFuncao)
+// // f(umaFuncao())  // Nao retorna nada (undefined) ou retorna "oi", se houver o return 
+
 // // listas betores/arraus/arranjs
-
-
 
 // const numeros = [1, 2, 3, 4]
 // const res = numeros.reduce((ac, v) => ac + v)
