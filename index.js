@@ -1,3 +1,39 @@
+// // listas betores/arraus/arranjs
+
+
+
+// const numeros = [1, 2, 3, 4]
+// const res = numeros.reduce((ac, v) => ac + v)
+// console.log(res)
+
+// const nomes = ['Ana MAria', 'Antonio', 'Rodrigo', 'Cristina', 'Alex']
+
+// const res = nomes.every(n => n.startsWith("A"))
+// console.log(res)
+// nomes.some //(algum)
+
+// // [A, A, R, C, A]
+// const iniciais = nomes.map(function(nome){return nome.charAt(0)})
+// console.log(iniciais)
+
+// const apenasComA = nomes.filter((nome) => {return nome.startsWith('A')})
+// // const apenasComa = nomes.filter(nome = >  nome.startsWith('A'))
+// console.log(apenasComA)
+
+// const f1 = () => {}
+// const f2 = function() {}
+
+// v1 = []
+// console.log(v1.length)
+// v1[0] = 'abc'
+// console.log(v1.length)
+// v1[10] = 2.5
+// console.log(v1.length)
+// console.log(v1)
+
+// for(let i=0; i<v1.length; i++)
+//     console.log(v1[i])
+
 // // Funções
 // // function e arrow functions
 
