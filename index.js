@@ -1,3 +1,59 @@
+//promises
+// const calculoRapidinho = (n) => {
+//     // 1 + 2 + 3 + ... + n = (n/2) * (n + 1)
+//     // se n  for maior que zero, retorna a soma, caso contrário, propaga o erro 
+//     return n > 0 ? Promise.resolve((n/2) * (n + 1)) : Promise.reject('Erro: n deve ser um número positivo')
+// }
+// calculoRapidinho(10)
+// .then((res) => {
+//     calculoRapidinho(res).then(res2 => {
+//         calculoRapidinho(res2).then(res3 => {
+//             calculoRapidinho(res3).then(res4 => {
+//                 console.log(`Resultado: ${res4}`)
+//             })
+//         })
+//     })
+// })
+
+// calculoRapidinho(1000)
+// .then(function(resultado) {console.log(`Resulatado: ${resultado}`)})
+// .catch((erro) => {console.log(`Erro: ${erro}`)})
+// // .catch(erro => {console.log(`Erro: ${erro}`)})
+
+// 1 + 2 + 3 + ... + n
+// const calculoDemorado = (n) => {
+//     let ac = 0
+//     for(let i = 1; i<=n; i++){
+//         ac += i
+//     }
+//     return ac
+// }
+// const res = calculoDemorado(1000)
+// console.log(res)    
+// console.log('A')
+
+// const calculoDemorado = (n) => {
+//     return new Promise((resolve, reject) => {
+//         // se n for negativo, propagar um erro, caso contrário, continua como já era 
+//         if (n < 0 ){
+//             reject('Erro: n deve ser um número positivo')
+//         }
+//         let ac = 0
+//         for (let i = 1; i <= n; i++) {
+//             ac += i
+//         }
+//         resolve(ac)
+//     })
+// }
+// const minhaPromise = calculoDemorado(1000)
+// //then/catch
+// minhaPromise
+// .then((resultado) => {console.log(`Resulatado: ${resultado}`)})
+// .catch((erro) => {console.log(`Erro: ${erro}`)})
+
+// console.log('A')
+
+
 // //JSON: JavaScript Object Notation
 // // Uma pessoa que se chama maria, tem 21 anos e mora na Rua B, numero 50
 // let pessoa = {
