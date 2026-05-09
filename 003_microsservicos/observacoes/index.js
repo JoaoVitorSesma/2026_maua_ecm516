@@ -22,12 +22,43 @@ app.post('/lembretes/:id/observacoes', (req, res) => {
 
     const observacoesDoLembrete = observacoesPorLembreteId[req.params.id] || []
 
-    observacoesDoLembrete.push({
+    const observacao = {
         id: idObs,
         texto
-    })
+    }
+
+    observacoesDoLembrete.push(observacao)
 
     observacoesPorLembreteId[req.params.id] = observacoesDoLembrete
+
+    res.status(201).json(observacao)
+})
+
+app.put('/lembretes/:id/observacoes', async (req, res) => {
+const idObs = uuidv4()
+    const { texto } = req.body
+
+    // const { id: lembreteId } = req.params
+
+    const observacoesDoLembrete = observacoesPorLembreteId[req.params.id] || []
+
+    const observacao = {
+        id: idObs,
+        texto
+    }
+
+    observacoesDoLembrete.push(observacao)
+
+    observacoesPorLembreteId[req.params.id] = observacoesDoLembrete
+
+    await axios.post('http://localhost:10000/eventos', {
+        tipo: 'ObservacaoCriada',
+        dados: {
+            id: idObs, 
+            texto,
+            lembreteId: req.params.id,
+        },
+    });
 
     res.status(201).json(observacao)
 })
