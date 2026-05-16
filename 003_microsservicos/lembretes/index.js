@@ -11,7 +11,7 @@ app.get('/lembretes', (req, res) => {
     res.json(lembretes)
 })
 
-app.post('/lembretes', (req, res) => {
+app.post('/lembretes', async (req, res) => {
     id++
 
     const { texto } = req.body
@@ -21,25 +21,26 @@ app.post('/lembretes', (req, res) => {
         texto
     }
 
-    res.status(201).json(lembretes[id])
-})
-
-app.put('/lembretes', async function(req, res) {
-    id++;
-    const { texto } = req.body;
-    lembretes[id] = {
-        id,
-        texto
-    };
     await axios.post('http://localhost:10000/eventos', {
         tipo: 'LembreteCriado',
         dados: {
-            id, 
+            id,
             texto,
         },
-    });
-    res.status(201).json(lembretes[id]);
-});
+    })
+
+    console.log('Lembrete criado:', lembretes[id])
+
+    res.status(201).json(lembretes[id])
+})
+
+app.post('/eventos', (req, res) => {
+    const evento = req.body
+
+    console.log('Evento recebido em lembretes:', evento)
+
+    res.status(200).json({ msg: 'ok' })
+})
 
 const port = 4000
 app.listen(port, () => {

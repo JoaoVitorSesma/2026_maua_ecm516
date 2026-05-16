@@ -12,6 +12,8 @@ app.use(express.json());
 app.post('/eventos', async function(req, res) {
     // extrai o evento da requisição
     const evento = req.body;
+
+    console.log('Evento recebido no barramento:', evento);
     
     // enviar o evento o microsserviço (lembretes)
     try {
@@ -25,8 +27,11 @@ app.post('/eventos', async function(req, res) {
     } catch (error) {
         console.error('Erro ao enviar evento de observacoes:', error);
     }
-
-    res.end();
+    try {
+    await axios.post('http://localhost:6000/eventos', evento);
+    } catch (error) {
+        console.error('Erro ao enviar evento de consulta:', error);
+    }
 
     // retornar um status 200 para o remetente do evento
     res.status(200).json({ msg: 'ok' });
