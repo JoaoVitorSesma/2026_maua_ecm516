@@ -4,8 +4,12 @@ const axios = require('axios')
 const app = express()
 app.use(express.json())
 
+const eventos = []
+
 app.post('/eventos', async (req, res) => {
     const evento = req.body
+
+    eventos.push(evento)
 
     console.log('Evento recebido no barramento:', evento)
 
@@ -25,6 +29,10 @@ app.post('/eventos', async (req, res) => {
     }
 
     res.status(200).json({ msg: 'ok' })
+})
+
+app.get('/eventos', (req, res) => {
+    res.json(eventos)
 })
 
 const port = 10000

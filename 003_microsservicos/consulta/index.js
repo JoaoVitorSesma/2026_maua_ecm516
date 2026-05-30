@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios')
 
 const app = express()
 app.use(express.json())
@@ -56,6 +57,19 @@ app.post('/eventos', (req, res) => {
     res.status(200).json({ msg: 'ok' })
 })
 
-app.listen(6000, () => {
-    console.log('Consultas. Porta 6000')
+const port = 6000
+app.listen(port, async () => {
+    console.log('Consultas. Porta', port)
+
+    try {
+        const { data } = await axios.get('http://localhost:10000/eventos')
+
+        data.forEach((evento) => {
+            if (funcoes[evento.tipo]) {
+                funcoes[evento.tipo](evento.dados)
+            }
+        })
+    } catch (error) {
+        console.error('Erro ao buscar eventos do barramento:', error.message)
+    }
 })
