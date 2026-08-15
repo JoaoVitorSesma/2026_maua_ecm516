@@ -4,6 +4,8 @@ const axios = require('axios')
 const app = express()
 app.use(express.json())
 
+const barramentoUrl = process.env.BARRAMENTO_URL || 'http://localhost:10000'
+
 const lembretes = {}
 let id = 0
 
@@ -25,7 +27,7 @@ app.post('/lembretes', async (req, res) => {
         texto
     }
 
-    await axios.post('http://localhost:10000/eventos', {
+    await axios.post(`${barramentoUrl}/eventos`, {
         tipo: 'LembreteCriado',
         dados: {
             id,
