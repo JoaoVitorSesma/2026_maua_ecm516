@@ -35,6 +35,10 @@ app.get('/lembretes/:id/observacoes', (req, res) => {
     res.json(observacoes)
 })
 
+app.get('/health', (req, res) => {
+    res.json({ servico: 'observacoes', status: 'ok' })
+})
+
 const criarObservacao = async (req, res) => {
     const idObs = uuidv4()
     const { texto } = req.body

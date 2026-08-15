@@ -42,6 +42,10 @@ app.get('/lembretes', (req, res) => {
     res.json(baseConsulta)
 })
 
+app.get('/health', (req, res) => {
+    res.json({ servico: 'consulta', status: 'ok' })
+})
+
 app.post('/eventos', (req, res) => {
     try {
         const evento = req.body

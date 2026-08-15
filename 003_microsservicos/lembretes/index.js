@@ -11,6 +11,10 @@ app.get('/lembretes', (req, res) => {
     res.json(lembretes)
 })
 
+app.get('/health', (req, res) => {
+    res.json({ servico: 'lembretes', status: 'ok' })
+})
+
 app.post('/lembretes', async (req, res) => {
     id++
 

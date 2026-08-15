@@ -35,6 +35,10 @@ app.get('/eventos', (req, res) => {
     res.json(eventos)
 })
 
+app.get('/health', (req, res) => {
+    res.json({ servico: 'barramento', status: 'ok' })
+})
+
 const port = 10000
 app.listen(port, () => {
     console.log(`Barramento de eventos. Porta ${port}.`)
