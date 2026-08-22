@@ -4,6 +4,8 @@ const axios = require('axios')
 const app = express()
 app.use(express.json())
 
+const barramentoUrl = process.env.BARRAMENTO_URL || 'http://localhost:10000'
+
 const baseConsulta = {}
 
 const funcoes = {
@@ -66,7 +68,7 @@ app.listen(port, async () => {
     console.log('Consultas. Porta', port)
 
     try {
-        const { data } = await axios.get('http://localhost:10000/eventos')
+        const { data } = await axios.get(`${barramentoUrl}/eventos`)
 
         data.forEach((evento) => {
             if (funcoes[evento.tipo]) {

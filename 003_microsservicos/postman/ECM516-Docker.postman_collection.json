@@ -1,0 +1,484 @@
+{
+  "info": {
+    "_postman_id": "2f5294a0-e729-4d28-97af-f89be436ae45",
+    "name": "ECM516 - Validação Docker dos Microsserviços",
+    "description": "Valida os health checks e o fluxo completo de lembretes, observações, classificação, consulta, barramento e monitoramento. Execute a coleção na ordem apresentada.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "barramentoUrl",
+      "value": "http://localhost:10000",
+      "type": "string"
+    },
+    {
+      "key": "lembretesUrl",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "observacoesUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "consultaUrl",
+      "value": "http://localhost:6000",
+      "type": "string"
+    },
+    {
+      "key": "classificacaoUrl",
+      "value": "http://localhost:7000",
+      "type": "string"
+    },
+    {
+      "key": "monitoramentoUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "lembreteId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "observacaoImportanteId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "observacaoComumId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - Health checks",
+      "item": [
+        {
+          "name": "Barramento saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{barramentoUrl}}/health",
+            "description": "Confirma que o barramento está acessível na porta 10000."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Barramento informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('barramento');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Lembretes saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{lembretesUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Lembretes informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('lembretes');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Observações saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{observacoesUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Observações informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('observacoes');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consulta saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{consultaUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Consulta informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('consulta');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Classificação saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{classificacaoUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Classificação informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('classificacao');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Monitoramento saudável",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{monitoramentoUrl}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const resposta = pm.response.json();",
+                  "pm.test('Monitoramento informa status ok', function () {",
+                  "    pm.expect(resposta.servico).to.eql('monitoramento');",
+                  "    pm.expect(resposta.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 - Fluxo funcional",
+      "item": [
+        {
+          "name": "Criar lembrete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Estudar Docker com Postman\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{lembretesUrl}}/lembretes",
+            "description": "Cria um lembrete e salva seu ID na variável de coleção lembreteId."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Lembrete criado com HTTP 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const lembrete = pm.response.json();",
+                  "pm.test('Lembrete possui ID e texto esperado', function () {",
+                  "    pm.expect(lembrete.id).to.exist;",
+                  "    pm.expect(lembrete.texto).to.eql('Estudar Docker com Postman');",
+                  "});",
+                  "pm.collectionVariables.set('lembreteId', String(lembrete.id));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Criar observação importante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Este conteúdo é importante\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{observacoesUrl}}/lembretes/{{lembreteId}}/observacoes",
+            "description": "Cria uma observação que deve ser classificada como importante."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!pm.collectionVariables.get('lembreteId')) {",
+                  "    throw new Error('Execute primeiro a requisição Criar lembrete.');",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Observação criada com HTTP 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const observacao = pm.response.json();",
+                  "pm.test('Palavra-chave gera classificação importante', function () {",
+                  "    pm.expect(observacao.id).to.exist;",
+                  "    pm.expect(observacao.texto).to.eql('Este conteúdo é importante');",
+                  "    pm.expect(observacao.status).to.eql('importante');",
+                  "});",
+                  "pm.collectionVariables.set('observacaoImportanteId', observacao.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Criar observação comum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Revisar o conteúdo depois\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{observacoesUrl}}/lembretes/{{lembreteId}}/observacoes",
+            "description": "Cria uma observação sem a palavra-chave, que deve ser classificada como comum."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Observação criada com HTTP 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const observacao = pm.response.json();",
+                  "pm.test('Texto sem palavra-chave gera classificação comum', function () {",
+                  "    pm.expect(observacao.id).to.exist;",
+                  "    pm.expect(observacao.texto).to.eql('Revisar o conteúdo depois');",
+                  "    pm.expect(observacao.status).to.eql('comum');",
+                  "});",
+                  "pm.collectionVariables.set('observacaoComumId', observacao.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar observações do lembrete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{observacoesUrl}}/lembretes/{{lembreteId}}/observacoes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const observacoes = pm.response.json();",
+                  "const importanteId = pm.collectionVariables.get('observacaoImportanteId');",
+                  "const comumId = pm.collectionVariables.get('observacaoComumId');",
+                  "pm.test('Retorna as duas observações criadas nesta execução', function () {",
+                  "    pm.expect(observacoes).to.be.an('array');",
+                  "    pm.expect(observacoes.some(function (item) { return item.id === importanteId && item.texto === 'Este conteúdo é importante' && item.status === 'importante'; })).to.be.true;",
+                  "    pm.expect(observacoes.some(function (item) { return item.id === comumId && item.texto === 'Revisar o conteúdo depois' && item.status === 'comum'; })).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Validar consulta agregada",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{consultaUrl}}/lembretes",
+            "description": "Confirma que a projeção de consulta recebeu os eventos do barramento."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const consulta = pm.response.json();",
+                  "const lembreteId = pm.collectionVariables.get('lembreteId');",
+                  "const lembrete = consulta[lembreteId];",
+                  "const importanteId = pm.collectionVariables.get('observacaoImportanteId');",
+                  "const comumId = pm.collectionVariables.get('observacaoComumId');",
+                  "pm.test('Consulta contém o lembrete criado', function () {",
+                  "    pm.expect(lembrete).to.exist;",
+                  "    pm.expect(String(lembrete.id)).to.eql(lembreteId);",
+                  "    pm.expect(lembrete.texto).to.eql('Estudar Docker com Postman');",
+                  "});",
+                  "pm.test('Consulta contém as classificações importante e comum', function () {",
+                  "    pm.expect(lembrete.observacoes.some(function (item) { return item.id === importanteId && item.texto === 'Este conteúdo é importante' && item.status === 'importante'; })).to.be.true;",
+                  "    pm.expect(lembrete.observacoes.some(function (item) { return item.id === comumId && item.texto === 'Revisar o conteúdo depois' && item.status === 'comum'; })).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Validar eventos do barramento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{barramentoUrl}}/eventos",
+            "description": "Confirma a passagem dos eventos necessários ao fluxo completo."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const eventos = pm.response.json();",
+                  "const lembreteId = pm.collectionVariables.get('lembreteId');",
+                  "const importanteId = pm.collectionVariables.get('observacaoImportanteId');",
+                  "const comumId = pm.collectionVariables.get('observacaoComumId');",
+                  "function possuiEvento(tipo, predicado) {",
+                  "    return eventos.some(function (evento) { return evento.tipo === tipo && predicado(evento.dados); });",
+                  "}",
+                  "pm.test('Barramento registrou o lembrete atual', function () {",
+                  "    pm.expect(possuiEvento('LembreteCriado', function (dados) { return String(dados.id) === lembreteId; })).to.be.true;",
+                  "});",
+                  "pm.test('Barramento registrou o ciclo da observação importante', function () {",
+                  "    pm.expect(possuiEvento('ObservacaoCriada', function (dados) { return dados.id === importanteId; })).to.be.true;",
+                  "    pm.expect(possuiEvento('ObservacaoClassificada', function (dados) { return dados.id === importanteId && dados.status === 'importante'; })).to.be.true;",
+                  "    pm.expect(possuiEvento('ObservacaoAtualizada', function (dados) { return dados.id === importanteId && dados.status === 'importante'; })).to.be.true;",
+                  "});",
+                  "pm.test('Barramento registrou o ciclo da observação comum', function () {",
+                  "    pm.expect(possuiEvento('ObservacaoCriada', function (dados) { return dados.id === comumId; })).to.be.true;",
+                  "    pm.expect(possuiEvento('ObservacaoClassificada', function (dados) { return dados.id === comumId && dados.status === 'comum'; })).to.be.true;",
+                  "    pm.expect(possuiEvento('ObservacaoAtualizada', function (dados) { return dados.id === comumId && dados.status === 'comum'; })).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Validar monitoramento da pilha",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{monitoramentoUrl}}/monitoramento",
+            "description": "Confirma que os cinco serviços monitorados estão operantes."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "const monitoramento = pm.response.json();",
+                  "const nomesEsperados = ['barramento', 'lembretes', 'observacoes', 'consulta', 'classificacao'];",
+                  "pm.test('Status geral está ok', function () {",
+                  "    pm.expect(monitoramento.statusGeral).to.eql('ok');",
+                  "});",
+                  "pm.test('Todos os serviços estão operantes', function () {",
+                  "    pm.expect(monitoramento.servicos).to.have.lengthOf(5);",
+                  "    pm.expect(monitoramento.servicos.every(function (servico) { return servico.operante === true && servico.statusCode === 200; })).to.be.true;",
+                  "    pm.expect(monitoramento.servicos.map(function (servico) { return servico.nome; })).to.have.members(nomesEsperados);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

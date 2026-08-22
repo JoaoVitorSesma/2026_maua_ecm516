@@ -4,6 +4,8 @@ const axios = require('axios')
 const app = express()
 app.use(express.json())
 
+const barramentoUrl = process.env.BARRAMENTO_URL || 'http://localhost:10000'
+
 const palavraChave = 'importante'
 const observacoesClassificadas = new Set()
 
@@ -17,7 +19,7 @@ const funcoes = {
             ? 'importante'
             : 'comum'
 
-        await axios.post('http://localhost:10000/eventos', {
+        await axios.post(`${barramentoUrl}/eventos`, {
             tipo: 'ObservacaoClassificada',
             dados: {
                 ...observacao,
@@ -56,7 +58,7 @@ app.listen(port, async () => {
     console.log(`Classificacao. Porta ${port}.`)
 
     try {
-        const { data } = await axios.get('http://localhost:10000/eventos')
+        const { data } = await axios.get(`${barramentoUrl}/eventos`)
 
         data
             .filter(evento => evento.tipo === 'ObservacaoClassificada')

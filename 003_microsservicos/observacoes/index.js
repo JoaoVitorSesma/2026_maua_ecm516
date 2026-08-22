@@ -5,6 +5,8 @@ const { v4: uuidv4 } = require('uuid')
 const app = express()
 app.use(express.json())
 
+const barramentoUrl = process.env.BARRAMENTO_URL || 'http://localhost:10000'
+
 const observacoesPorLembreteId = {}
 
 const funcoes = {
@@ -18,7 +20,7 @@ const funcoes = {
 
         obsParaAtualizar.status = observacao.status
 
-        await axios.post('http://localhost:10000/eventos', {
+        await axios.post(`${barramentoUrl}/eventos`, {
             tipo: 'ObservacaoAtualizada',
             dados: {
                 id: observacao.id,
@@ -53,7 +55,7 @@ const criarObservacao = async (req, res) => {
     observacoesDoLembrete.push(observacao)
     observacoesPorLembreteId[req.params.id] = observacoesDoLembrete
 
-    await axios.post('http://localhost:10000/eventos', {
+    await axios.post(`${barramentoUrl}/eventos`, {
         tipo: 'ObservacaoCriada',
         dados: {
             id: idObs,

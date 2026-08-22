@@ -1,0 +1,132 @@
+services:
+  barramento:
+    image: ecm516/barramento:node24-bookworm-slim
+    build:
+      context: ./barramento
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
+    environment:
+      NODE_ENV: production
+      LEMBRETES_URL: http://lembretes:4000
+      OBSERVACOES_URL: http://observacoes:4001
+      CONSULTA_URL: http://consulta:6000
+      CLASSIFICACAO_URL: http://classificacao:7000
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:10000/health').then(response => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  lembretes:
+    image: ecm516/lembretes:node24-bookworm-slim
+    build:
+      context: ./lembretes
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      BARRAMENTO_URL: http://barramento:10000
+    depends_on:
+      barramento:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(response => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  observacoes:
+    image: ecm516/observacoes:node24-bookworm-slim
+    build:
+      context: ./observacoes
+      dockerfile: Dockerfile
+    ports:
+      - "5000:4001"
+    environment:
+      NODE_ENV: production
+      BARRAMENTO_URL: http://barramento:10000
+    depends_on:
+      barramento:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4001/health').then(response => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  consulta:
+    image: ecm516/consulta:node24-bookworm-slim
+    build:
+      context: ./consulta
+      dockerfile: Dockerfile
+    ports:
+      - "6000:6000"
+    environment:
+      NODE_ENV: production
+      BARRAMENTO_URL: http://barramento:10000
+    depends_on:
+      barramento:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:6000/health', response => process.exit(response.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  classificacao:
+    image: ecm516/classificacao:node24-bookworm-slim
+    build:
+      context: ./classificacao
+      dockerfile: Dockerfile
+    ports:
+      - "7000:7000"
+    environment:
+      NODE_ENV: production
+      BARRAMENTO_URL: http://barramento:10000
+    depends_on:
+      barramento:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:7000/health').then(response => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  monitoramento:
+    image: ecm516/monitoramento:node24-bookworm-slim
+    build:
+      context: ./monitoramento
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: production
+      BARRAMENTO_URL: http://barramento:10000
+      LEMBRETES_URL: http://lembretes:4000
+      OBSERVACOES_URL: http://observacoes:4001
+      CONSULTA_URL: http://consulta:6000
+      CLASSIFICACAO_URL: http://classificacao:7000
+    depends_on:
+      barramento:
+        condition: service_healthy
+      lembretes:
+        condition: service_healthy
+      observacoes:
+        condition: service_healthy
+      consulta:
+        condition: service_healthy
+      classificacao:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8000/health').then(response => { if (!response.ok) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
