@@ -4,12 +4,18 @@ const axios = require('axios')
 const app = express()
 app.use(express.json())
 
+const barramentoUrl = process.env.BARRAMENTO_URL || 'http://localhost:10000'
+const lembretesUrl = process.env.LEMBRETES_URL || 'http://localhost:4000'
+const observacoesUrl = process.env.OBSERVACOES_URL || 'http://localhost:4001'
+const consultaUrl = process.env.CONSULTA_URL || 'http://localhost:6000'
+const classificacaoUrl = process.env.CLASSIFICACAO_URL || 'http://localhost:7000'
+
 const servicos = [
-    { nome: 'barramento',    url: 'http://localhost:10000/health' },
-    { nome: 'lembretes',     url: 'http://localhost:4000/health' },
-    { nome: 'observacoes',   url: 'http://localhost:4001/health' },
-    { nome: 'consulta',      url: 'http://localhost:6000/health' },
-    { nome: 'classificacao', url: 'http://localhost:7000/health' }
+    { nome: 'barramento',    url: `${barramentoUrl}/health` },
+    { nome: 'lembretes',     url: `${lembretesUrl}/health` },
+    { nome: 'observacoes',   url: `${observacoesUrl}/health` },
+    { nome: 'consulta',      url: `${consultaUrl}/health` },
+    { nome: 'classificacao', url: `${classificacaoUrl}/health` }
 ]
 
 app.get('/health', (req, res) => {
